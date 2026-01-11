@@ -6,14 +6,12 @@ st.set_page_config(page_title="Fake News Detection Bot", layout="centered")
 st.title("📰 Fake News Detection Chatbot")
 st.write("Paste a news article or snippet below and I will predict whether it is fake or real.")
 
+MODEL_REPO = "RayOfLife/FakeBotV2"
 
 @st.cache_resource
 def load_model():
-MODEL_REPO = "RayOfLife/FakeBotV2"
-
-tokenizer = AutoTokenizer.from_pretrained(MODEL_REPO)
-model = AutoModelForSequenceClassification.from_pretrained(MODEL_REPO)
-
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_REPO)
+    model = AutoModelForSequenceClassification.from_pretrained(MODEL_REPO)
     model.eval()
     return tokenizer, model
 
@@ -29,6 +27,7 @@ if st.button("Analyze"):
     else:
         inputs = tokenizer(user_input, return_tensors="pt", truncation=True, padding=True, max_length=256)
         inputs = {k: v.to(device) for k, v in inputs.items()}
+
         with torch.no_grad():
             outputs = model(**inputs)
             probs = torch.softmax(outputs.logits, dim=1)
