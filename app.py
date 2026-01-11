@@ -34,7 +34,13 @@ if st.button("Analyze"):
             pred = probs.argmax(dim=1).item()
             conf = probs[0][pred].item()
 
-        label = "True News" if pred == 1 else "Fake News"
+        max_prob = probs.max().item()
+        
+        if max_prob < 0.65:
+            label = "Uncertain"
+        else:
+            label = "True News" if pred == 1 else "Fake News"
+
         st.subheader("Result")
-        st.write(f"🧠 Prediction: **{label}**")
-        st.write(f"📊 Confidence: **{round(conf*100,2)}%**")
+        st.write(f"Prediction: **{label}**")
+        st.write(f"Confidence: **{round(conf*100,2)}%**")
