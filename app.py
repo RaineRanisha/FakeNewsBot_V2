@@ -62,7 +62,7 @@ if st.button("Analyze"):
         st.write(f"📊 Confidence: **{round(conf*100,2)}%**")
  
  
-!zip -r distilbert-fake-news.zip distilbert-fake-news
+
 from google.colab import files
  
 files.download("app.py")
