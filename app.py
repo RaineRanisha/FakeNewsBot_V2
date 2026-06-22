@@ -57,7 +57,5 @@ if st.button("Analyze"):
         st.write(f"🧠 Prediction: **{label}**")
         st.write(f"📊 Confidence: **{round(conf*100,2)}%**")
  
- 
 
-f
  
